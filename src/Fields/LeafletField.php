@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace MaycolMunoz\MoonLeaflet\Fields;
 
-use MoonShine\UI\Fields\Field;
 use MaycolMunoz\MoonLeaflet\Traits\HasConfig;
 use MaycolMunoz\MoonLeaflet\Traits\HasLeaflet;
+use MoonShine\UI\Fields\Field;
 
-class Leaflet extends Field
+class LeafletField extends Field
 {
     use HasConfig, HasLeaflet;
 
     protected string $type = 'hidden';
 
-    protected string $view = 'moon-leaflet::leaflet';
+    protected string $view = 'moon-leaflet::leaflet-field';
 
     protected bool $isGroup = true;
 
@@ -30,6 +30,7 @@ class Leaflet extends Field
     protected function viewData(): array
     {
         return [
+            'label' => $this->getLabel(),
             'initLatitude' => $this->getInitialLatitude(),
             'initLongitude' => $this->getInitialLongitude(),
             'zoom' => $this->getZoom(),
