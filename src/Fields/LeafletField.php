@@ -30,13 +30,14 @@ class LeafletField extends Field
     protected function viewData(): array
     {
         return [
+            'layer' => $this->getLayer(),
             'label' => $this->getLabel(),
             'initLatitude' => $this->getInitialLatitude(),
             'initLongitude' => $this->getInitialLongitude(),
             'zoom' => $this->getZoom(),
             'minZoom' => $this->getMinZoom(),
             'maxZoom' => $this->getMaxZoom(),
-            'draggable' => $this->isMapDraggable(),
+            'draggable' => $this->isDraggable(),
             'latAttributes' => $this->getLatitudeAttributes(),
             'lonAttributes' => $this->getLongitudeAttributes(),
         ];

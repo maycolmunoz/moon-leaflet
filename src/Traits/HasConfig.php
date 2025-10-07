@@ -6,6 +6,18 @@ use InvalidArgumentException;
 
 trait HasConfig
 {
+    protected array $layers = [
+        'OpenStreetMap' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        'OpenTopoMap' => 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+        'CartoDB Dark Matter' => 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+        'CartoDB Positron' => 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+        'CartoDB Voyager' => 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
+        'Esri WorldStreetMap' => 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+        'Esri Satellite' => 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    ];
+
+    protected string $layer = 'OpenStreetMap';
+
     protected float $initLatitude = 0;
 
     protected float $initLongitude = 0;
@@ -18,7 +30,7 @@ trait HasConfig
 
     protected bool $draggable = true;
 
-    public function isDraggable(bool $draggable): static
+    public function draggable(bool $draggable): static
     {
         $this->draggable = $draggable;
 
@@ -66,6 +78,22 @@ trait HasConfig
         return $this;
     }
 
+    public function layer(string $layer): static
+    {
+        if (! array_key_exists($layer, $this->layers)) {
+            throw new InvalidArgumentException("Invalid layer: {$layer}");
+        }
+
+        $this->layer = $layer;
+
+        return $this;
+    }
+
+    public function getLayer(): string
+    {
+        return $this->layers[$this->layer] ?? $this->layers['OpenStreetMap'];
+    }
+
     public function getInitialLatitude(): float
     {
         return $this->initLatitude;
@@ -91,7 +119,7 @@ trait HasConfig
         return $this->maxZoom;
     }
 
-    public function isMapDraggable(): bool
+    public function isDraggable(): bool
     {
         return $this->draggable;
     }

@@ -1,17 +1,17 @@
 {
 	"name": "maycolmunoz/moon-leaflet",
-	"description": "Leaflet field for MoonShine",
+	"description": "Leaflet field and component for MoonShine",
 	"keywords": [
 		"moonshine",
 		"leaflet",
 		"map"
 	],
 	"type": "library",
-	"version": "2.0",
+	"version": "3.0",
 	"license": "MIT",
 	"support": {
-		"issues": "https://github.com/modules/moon-leaflet/issues",
-		"source": "https://github.com/modules/moon-leaflet"
+		"issues": "https://github.com/maycolmunoz/moon-leaflet/issues",
+		"source": "https://github.com/maycolmunoz/moon-leaflet"
 	},
 	"authors": [
 		{

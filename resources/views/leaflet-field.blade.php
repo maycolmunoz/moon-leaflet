@@ -11,9 +11,8 @@
 		document.addEventListener('alpine:init', () => {
 			Alpine.data('map', () => ({
 				map: '',
-				lat: {{ $value['latitude'] ?? $initLatitude }},
-				lon: {{ $value['longitude'] ?? $initLongitude }},
-
+				lat: @js( $value['latitude'] ?? $initLatitude ),
+				lon: @js( $value['longitude'] ?? $initLongitude ),
 
 				showMap() {
 					const { lat, lon } = this;
@@ -26,9 +25,8 @@
 
 						}).setView([lat, lon], {{ $zoom }});
 
-					L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-							attribution: '© OpenStreetMap contributors'
-						}).addTo(this.map);
+					L.tileLayer(@js( $layer ), { attribution: '© OpenStreetMap contributors' })
+						.addTo(this.map);
 
 					L.marker([lat, lon], { draggable: @js( $draggable ? true : false )})
 						.bindPopup(@js( $label ))
@@ -41,7 +39,6 @@
 
 					L.featureGroup().addTo(this.map);
 				},
-
 
 				init() {
 					if ("geolocation" in navigator) {

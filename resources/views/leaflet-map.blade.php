@@ -25,9 +25,8 @@
 						maxZoom: {{ $maxZoom }},
 					}).setView([lat, lon], {{ $zoom }});
 
-					L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-						attribution: '© OpenStreetMap contributors',
-					}).addTo(this.map);
+					L.tileLayer(@js( $layer ), { attribution: '© OpenStreetMap contributors' })
+						.addTo(this.map);
 
 					this.items.forEach((item) => {
 						L.marker([item.latitude, item.longitude])

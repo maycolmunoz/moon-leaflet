@@ -1,30 +1,43 @@
-# Leaflet field for [MoonShine Laravel admin panel](https://moonshine-laravel.com)
+# 🌍 MoonLeaflet — Leaflet for [MoonShine Laravel Admin Panel](https://moonshine-laravel.com)
 
-MoonLeaflet adds a map field to your forms, letting users pick their location using a Leaflet map. It's perfect for saving latitude and longitude easily. In table and detail views, it shows an icon that links to Google Maps with the saved coordinates for quick access.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/maycolmunoz/moon-leaflet.svg?style=flat-square)](https://packagist.org/packages/maycolmunoz/moon-leaflet)
+[![Total Downloads](https://img.shields.io/packagist/dt/maycolmunoz/moon-leaflet.svg?style=flat-square)](https://packagist.org/packages/maycolmunoz/moon-leaflet)
+[![License](https://img.shields.io/github/license/maycolmunoz/moon-leaflet.svg?style=flat-square)](https://github.com/maycolmunoz/moon-leaflet/blob/main/LICENSE)
 
-| Field  | Component  |
-|----------------|-------------------|
+**MoonLeaflet** adds interactive map support to MoonShine. It allows users to select coordinates directly from a map or display multiple locations visually with Leaflet.
+
+- Map field with draggable marker
+- Multiple available map layers
+- Works in Form, Detail, and Index views
+- Component mode with multiple markers
+- Optional user geolocation support
+- Customizable zoom, drag, and layer
+
+---
+
+## 🧱 Example Previews
+
+| Field                                       | Component                                           |
+| ------------------------------------------- | --------------------------------------------------- |
 | ![Field Example](./_docs/images/field.webp) | ![Component Example](./_docs/images/component.webp) |
 
-
-### Requirements
-
-- MoonShine v3.0+
+---
 
 ### Support MoonShine versions
 
 | MoonShine | MoonLeaflet |
 | --------- | ----------- |
-| 3.0+      | 1.0, 2.0    |
+| 3.0+      | 3.0         |
 
+## 🧩 Installation
 
-## Installation
-
-```shell
+```bash
 composer require maycolmunoz/moon-leaflet
 ```
 
-## Usage
+---
+
+## 🚀 Usage
 
 ### Field
 
@@ -34,10 +47,7 @@ use MaycolMunoz\MoonLeaflet\Fields\LeafletField;
 LeafletField::make('Location') // label
     ->initialPosition(latitude: 40.7580, longitude: -73.9855) //initial position
     ->columns('latitude', 'longitude') // columns in database
-    ->isDraggable(true) // default is true
-    ->minZoom(5) // min zom
-    ->maxZoom(18) // max zoom
-    ->zoom(14), // initial zoom
+    ->draggable(true) // draggable market (optional) default is true
 ```
 
 ### Component
@@ -45,21 +55,38 @@ LeafletField::make('Location') // label
 ```php
 use MaycolMunoz\MoonLeaflet\Components\LeafletMap;
 
-// Each item must include 'name', 'latitude', and 'longitude' attributes
-$items = Business::all()
+LeafletMap::make('Business Locations') // label
+    ->initialPosition(latitude: 40.7580, longitude: -73.9855) //initial position
+    ->items(fn () => Business::all() 
     ->map(function (Business $business) {
         return [
             'name' => $business->name,
             'latitude' => $business->latitude,
             'longitude' => $business->longitude,
         ];
-    });
-
-LeafletMap::make(label: 'Business Locations', items: $items->toArray()) // label and items
-    ->initialPosition(latitude: 40.7580, longitude: -73.9855) //initial position
-    ->minZoom(5) // min zom
-    ->maxZoom(18) // max zoom
-    ->zoom(14) // initial zoom,
+    })->toArray()) // Each item must include name, latitude, and longitude
 ```
 
-Note: The map will attempt to use the user's current location if location services are enabled. If no location is provided, the map will default to coordinates (0, 0).
+> 💡 The map will attempt to use the user's location if geolocation is enabled.  
+> If unavailable, it defaults to coordinates `(0, 0)`.
+
+### 🌍 Options for field and component
+
+```php
+    ->layer('OpenStreetMap') // map layer (default: OpenStreetMap)
+    ->minZoom(5) // minimum zoom (default: 5)
+    ->maxZoom(18) // maximum zoom (default: 18)
+    ->zoom(14) // initial zoom (default: 14)
+```
+
+### 🌍 Available Map Layers
+
+| Layer Name              |
+| ----------------------- |
+| **OpenStreetMap**       |
+| **OpenTopoMap**         |
+| **CartoDB Dark Matter** |
+| **CartoDB Positron**    |
+| **CartoDB Voyager**     |
+| **Esri WorldStreetMap** |
+| **Esri Satellite**      |
