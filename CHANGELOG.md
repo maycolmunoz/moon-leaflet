@@ -18,3 +18,7 @@
 - Refactored the component to use a **chainable `items()` method** instead of the constructor for setting map points.  
 - ⚠️ **Breaking change:** Items can no longer be passed via the constructor.
 - Renamed method **`isDraggable()` → `draggable()`** for a cleaner and more expressive.
+
+## [4.0.0] - 2025-12-04
+### Changed
+- Refactored component and field styles.

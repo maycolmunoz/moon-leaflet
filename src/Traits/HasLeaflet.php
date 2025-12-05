@@ -148,10 +148,10 @@ trait HasLeaflet
         $latitude = $value[$this->getLatitudeField()];
         $longitude = $value[$this->getLongitudeField()];
 
-        return Link::make("https://www.google.com/maps?q={$latitude},{$longitude}", '')
-            ->customAttributes([
-                'title' => "lat: {$latitude}, lon: {$longitude}",
-            ])
+        return Link::make(
+            "https://www.google.com/maps?q={$latitude},{$longitude}",
+            "lat: {$latitude}, lon: {$longitude}"
+        )
             ->icon('s.globe-americas')
             ->blank()
             ->render();
